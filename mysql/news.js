@@ -7,3 +7,5 @@ const connection = mysql.createConnection({
   password: process.env.DB_PASS,
   database: 'news_api',
 });
+
+module.exports = connection;

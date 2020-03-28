@@ -24,7 +24,7 @@ app.get('/', () => {
       // const publishedAt = response.articles.map((e) => e.publisedAt);
       connection.connect();
       response.articles.forEach((e) => {
-        const post = {
+        const news = {
           fonte: e.source.name,
           title: e.title,
           description: e.description,
@@ -34,8 +34,8 @@ app.get('/', () => {
         };
 
         const query = connection.query(
-          'INSERT INTO posts SET ?',
-          post,
+          'INSERT INTO news SET ?',
+          news,
           (error, results, fields) => {
             if (error) throw error;
             // Neat!
