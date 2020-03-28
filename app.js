@@ -6,22 +6,15 @@ require('dotenv').config();
 
 const app = express();
 
-app.get('/', () => {
+app.get('/atualizacao', () => {
   const newsapi = new NewsAPI(process.env.NEWSAPIKEY);
 
   newsapi.v2
     .topHeadlines({
       q: 'covid',
       language: 'pt',
-      // country: 'br',
     })
     .then((response) => {
-      // const source = response.articles.map((e) => e.source.name);
-      // const title = response.articles.map((e) => e.title);
-      // const description = response.articles.map((e) => e.description);
-      // const url = response.articles.map((e) => e.url);
-      // const urlToImage = response.articles.map((e) => e.urlToImage);
-      // const publishedAt = response.articles.map((e) => e.publisedAt);
       connection.connect();
       response.articles.forEach((e) => {
         const news = {
@@ -38,13 +31,24 @@ app.get('/', () => {
           news,
           (error, results, fields) => {
             if (error) throw error;
-            // Neat!
           },
         );
       });
       connection.end();
     })
     .catch((e) => console.log(e));
+});
+
+
+app.get('/', (req, res) => {
+  connection.connect();
+  connection.query(
+    'SELECT * FROM news_api.news',
+    (error, results, fields) => {
+    if (error) throw error;
+    res.send(results);
+  });
+  connection.end();
 });
 
 app.listen(3000, () => {
