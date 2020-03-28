@@ -19,6 +19,7 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mysql": "github:mysqljs/mysql"
+    "mysql": "github:mysqljs/mysql",
+    "newsapi": "^2.4.0"
   }
 }
