@@ -46,7 +46,7 @@ app.get('/', (req, res) => {
 
   const page = (parseInt(req.query.page || 1) - 1) * limit;
 
-  let query = 'SELECT * FROM ?? limit ? offset ?';
+  let query = 'SELECT * FROM ?? ORDER BY idnews desc limit ? offset ? ';
   const table = ["news", limit, page];
   query = mysql.format(query, table);
 
