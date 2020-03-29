@@ -15,7 +15,6 @@ app.get('/atualizacao', () => {
       language: 'pt',
     })
     .then((response) => {
-      // connection.connect();
       response.articles.forEach((e) => {
         const news = {
           fonte: e.source.name,
@@ -34,16 +33,14 @@ app.get('/atualizacao', () => {
           if (error) console.log(error);
         });
       });
-      // connection.end();
     })
     .catch((e) => console.log(e));
 });
 
 app.get('/', (req, res) => {
-  // connection.connect();
   const limit = 10;
 
-  const page = (parseInt( req.query.page || 1 ) - 1) * limit;
+  const page = (parseInt(req.query.page || 1) - 1) * limit;
 
   let query = 'SELECT * FROM ?? limit ? offset ?';
   const table = ['news_api.news', limit, page];
@@ -53,7 +50,6 @@ app.get('/', (req, res) => {
     if (error) console.log(error);
     res.send(results);
   });
-  // connection.end();
 });
 
 app.listen(process.env.PORT || 3000, () => {
