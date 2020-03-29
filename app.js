@@ -1,5 +1,6 @@
 const express = require('express');
 const NewsAPI = require('newsapi');
+const mysql = require('mysql');
 const connection = require('./mysql/news');
 require('dotenv').config();
 
@@ -40,10 +41,18 @@ app.get('/atualizacao', () => {
 
 app.get('/', (req, res) => {
   connection.connect();
-  connection.query(
-    'SELECT * FROM news_api.news',
-    (error, results, fields) => {
-    if (error) throw error;
+  const limit = 10;
+
+  const page = (parseInt( req.query.page || 1 ) - 1) * limit;
+  console.log(req.query);
+
+  let query = 'SELECT * FROM ?? limit ? offset ?';
+  // Mention table from where you want to fetch records example-users
+  const table = ['news_api.news', limit, page];
+  query = mysql.format(query, table);
+
+  connection.query(query, (error, results, fields) => {
+    if (error) console.log(error);
     res.send(results);
   });
   connection.end();
