@@ -15,7 +15,7 @@ app.get('/atualizacao', () => {
       language: 'pt',
     })
     .then((response) => {
-      connection.connect();
+      // connection.connect();
       response.articles.forEach((e) => {
         const news = {
           fonte: e.source.name,
@@ -26,21 +26,21 @@ app.get('/atualizacao', () => {
           published_at: e.publishedAt,
         };
 
-        const query = connection.query(
-          'INSERT INTO news SET ?',
-          news,
-          (error, results, fields) => {
-            if (error) throw error;
-          },
-        );
+        let query = 'INSERT INTO ?? SET ?';
+        const table = ['news_api.news', news];
+        query = mysql.format(query, table);
+
+        connection.query(query, (error, results, fields) => {
+          if (error) console.log(error);
+        });
       });
-      connection.end();
+      // connection.end();
     })
     .catch((e) => console.log(e));
 });
 
 app.get('/', (req, res) => {
-  connection.connect();
+  // connection.connect();
   const limit = 10;
 
   const page = (parseInt( req.query.page || 1 ) - 1) * limit;
@@ -53,7 +53,7 @@ app.get('/', (req, res) => {
     if (error) console.log(error);
     res.send(results);
   });
-  connection.end();
+  // connection.end();
 });
 
 app.listen(process.env.PORT || 3000, () => {
