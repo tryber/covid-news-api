@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const app = express();
 
-app.get('/atualizacao', () => {
+app.get('/atualizacao', (req, res) => {
   const newsapi = new NewsAPI(process.env.NEWSAPIKEY);
 
   newsapi.v2
@@ -33,6 +33,7 @@ app.get('/atualizacao', () => {
           if (error) console.log(error);
         });
       });
+      res.send("ok");
     })
     .catch((e) => console.log(e));
 });
