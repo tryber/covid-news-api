@@ -44,10 +44,8 @@ app.get('/', (req, res) => {
   const limit = 10;
 
   const page = (parseInt( req.query.page || 1 ) - 1) * limit;
-  console.log(req.query);
 
   let query = 'SELECT * FROM ?? limit ? offset ?';
-  // Mention table from where you want to fetch records example-users
   const table = ['news_api.news', limit, page];
   query = mysql.format(query, table);
 
