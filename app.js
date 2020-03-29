@@ -2,9 +2,12 @@ const express = require('express');
 const NewsAPI = require('newsapi');
 const mysql = require('mysql');
 const connection = require('./mysql/news');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
+
+app.use(cors())
 
 app.get('/atualizacao', () => {
   const newsapi = new NewsAPI(process.env.NEWSAPIKEY);
