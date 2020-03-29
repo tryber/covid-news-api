@@ -1,4 +1,3 @@
-
 const express = require('express');
 const NewsAPI = require('newsapi');
 const connection = require('./mysql/news');
@@ -38,7 +37,6 @@ app.get('/atualizacao', () => {
     })
     .catch((e) => console.log(e));
 });
-
 
 app.get('/', (req, res) => {
   connection.connect();

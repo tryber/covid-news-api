@@ -10,5 +10,3 @@ CREATE TABLE news (
   `url_to_image` VARCHAR(255) NULL,
   `published_at` VARCHAR(45) NULL
 ) ENGINE = InnoDB;
-
-
