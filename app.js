@@ -26,7 +26,7 @@ app.get('/atualizacao', () => {
         };
 
         let query = 'INSERT INTO ?? SET ?';
-        const table = ['news_api.news', news];
+        const table = ['news', news];
         query = mysql.format(query, table);
 
         connection.query(query, (error, results, fields) => {
@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
   const page = (parseInt(req.query.page || 1) - 1) * limit;
 
   let query = 'SELECT * FROM ?? limit ? offset ?';
-  const table = ['news_api.news', limit, page];
+  const table = ["news", limit, page];
   query = mysql.format(query, table);
 
   connection.query(query, (error, results, fields) => {
